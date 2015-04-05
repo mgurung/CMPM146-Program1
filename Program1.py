@@ -29,7 +29,7 @@ def dijkstras_shortest_path(src, dst, graph, adj):
 			if next_node not in dist or distance < dist[next_node]:
 				dist[next_node] = distance
 				prev[next_node] = node
-				heappush(queue, next_node)
+					heappush(queue, next_node)
 
 	if node == dst:
 		path = []
