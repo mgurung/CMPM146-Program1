@@ -12,25 +12,25 @@ def dijkstras_shortest_path(src, dst, graph, adj):
 
 	pq = [] #initialize queue
 
-	heappush(pq, (src, 0)) #push source cell to queue with distance of 0
+	heappush(pq, (0, src)) #push source cell to queue with distance of 0
 
 	while not len(pq) == 0:
 
-		curr_cell, distance = heappop(pq) #pop lowest out of queue
+		distance, curr_cell = heappop(pq) #pop lowest out of queue
 
 		if curr_cell == dst: #check if the current cell is our destination and if it is, break
 			break
 
 		neighbors = adj(graph, curr_cell) #get neighboring cells
 
-		for neighbor_cell, neighbor_distance in neighbors: #iterate through neighbors 
+		for neighbor_distance, neighbor_cell in neighbors: #iterate through neighbors 
 
 			path_len = distance + neighbor_distance #calculate current path distance 
 			
 			if neighbor_cell not in curr_dist or path_len < curr_dist[neighbor_cell]:
 				curr_dist[neighbor_cell] = path_len
 				prev_dist[neighbor_cell] = curr_cell
-				heappush(pq, (neighbor_cell, path_len))
+				heappush(pq, (path_len, neighbor_cell))
 		
 	if curr_cell == dst:
 		path = []
@@ -55,7 +55,7 @@ def navigation_edges(level, cell):
 
 			if dist > 0 and next_cell in level['spaces']:
 				#print dist
-				edges.append((next_cell, dist))
+				edges.append((dist, next_cell))
 
 	return edges
 
